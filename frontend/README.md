@@ -5,5 +5,16 @@ Getting started with the challenge, I have an existing resume in microsoft word 
 
 [Input to ChatGpt](./RESUME%20-%20Jamaal%20Ahmed.docx)
 
-Prompt:
-Convert this resume word format to html use single file, use proper css organization within styles element and preserve columns.
+ChatGpt Prompts:
+
+-> 1: Convert this resume word format to html. Use single file, proper css organization within styles element and preserve columns.
+
+-> 2: Good. Each of these three should be on a new line: name, contact details, summary. In experience section #details should come under #employer and not side-by side. In #education section the items should be left-aligned with 'EDUCATION'.
+
+-> 3: Better. Attempt to apply the heading background fill from the initial word doc. Apply the horizontal border above each section as in the word doc. Provide the full experience descriptions listed (not truncated), and using the initial font style and size.
+
+... And so on
+
+Here is resulting resume after additional editing and tweaking:
+
+[index.html](./index.html)
