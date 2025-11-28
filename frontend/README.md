@@ -1,6 +1,8 @@
 # cloud-resume-challenge
 Cloud Resume Challenge Repo
 
+### Build resume html
+
 Getting started with the challenge, I have an existing resume in microsoft word format which I will try to convert into html using chatgpt.
 
 [Input to ChatGpt](./RESUME%20-%20Jamaal%20Ahmed.docx)
@@ -18,3 +20,12 @@ ChatGpt Prompts:
 Here is resulting resume after additional editing and tweaking:
 
 [index.html](./index.html)
+
+
+### Separation of concerns
+Separate stylesheet from html file
+
+### Installing local web server
+To serve static files locally as work progresses on the styling
+
+```npm i http-server -g```
