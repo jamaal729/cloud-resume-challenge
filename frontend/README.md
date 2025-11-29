@@ -29,3 +29,6 @@ Separate stylesheet from html file
 To serve static files locally as work progresses on the styling
 
 ```npm i http-server -g```
+
+### Front End
+Installed react and vite.js, not necessary as this is a simple site but adds for some good front-end hands-on practice
