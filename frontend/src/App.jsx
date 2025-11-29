@@ -1,23 +1,15 @@
-import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-import HeaderBlock from './components/HeaderBlock.jsx'
-import SectionsBlock from './components/SectionsBlock.jsx'
+import React from 'react';
+import ResumeData from './data/ResumeData';
+import HeaderBlock from './components/HeaderBlock';
+import SectionsBlock from './components/SectionsBlock';
 
-  function App() {
-    const [count, setCount] = useState(0)
+function App() {
+  return (
+    <div className="page">
+      <HeaderBlock data={ResumeData} />
+      <SectionsBlock data={ResumeData} />
+    </div>
+  );
+}
 
-    return (
-      <>
-        <div className="page">
-
-          <HeaderBlock />
-          <SectionsBlock />
-
-        </div>
-      </>
-    )
-  }
-
-export default App
+export default App;
