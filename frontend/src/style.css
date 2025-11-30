@@ -20,13 +20,14 @@ body{
   color:var(--text);
   margin:0;
   padding:34px 22px;
-  display:flex;
-  justify-content:center;
 }
 
 .page{
   width:100%;
   max-width:var(--maxw);
+  margin:0 auto;
+  /* ensure there's always room before the footer */
+  /* margin-bottom: 48px; */
 }
 
 /* ---------------------------------------------------------
@@ -133,6 +134,25 @@ h1.name{
 .skills-list p{
   margin:6px 0;
   font-size:15px;
+}
+
+/* ---------------------------------------------------------
+   FOOTER
+--------------------------------------------------------- */
+/* Stronger, last-resort rules to prevent other styles from overriding */
+.footer-wrapper {
+  width: 100%;
+  padding: 0 22px;
+  box-sizing: border-box;
+}
+
+.footer-block {
+  max-width: var(--maxw);
+  margin: 48px auto 0; /* spacing from content above + center */
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+  padding: 24px 12px 12px;
+  box-sizing: border-box;
 }
 
 /* ---------------------------------------------------------
