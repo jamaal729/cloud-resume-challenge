@@ -1,2 +1,2 @@
-# cloud-resume-challenge-work
-Practice of the Cloud Resume Challenge
+# cloud-resume-challenge
+Cloud Resume Challenge Repo
