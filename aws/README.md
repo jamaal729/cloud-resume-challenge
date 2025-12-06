@@ -19,3 +19,24 @@ ansible-vault create playbooks/vaults/prod.yml
 ansible-vault edit playbooks/vaults/prod.yml
 ansible-vault view playbooks/vaults/prod.yml
 ```
+
+
+
+## Install sam cli
+
+```sh
+curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/install.sh -o install-sam.sh
+sudo bash install-sam.sh --update
+sam --version
+```
+
+Did not work
+pip install --user aws-sam-cli
+sam --version
+
+Also
+pip install --user awscli
+
+
+
+
