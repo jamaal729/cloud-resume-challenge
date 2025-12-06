@@ -2,11 +2,34 @@
 - name: Invalidate CloudFront Cache
   hosts: localhost
   gather_facts: false
-  vars:
-    cloudfront_distribution_id: EMEHJI10QMBVK
   vars_files:
-  - vaults/prod.yml 
+    - vaults/prod.yml
   tasks:
+    - name: Get CloudFormation stack info
+      amazon.aws.cloudformation_info:
+        region: "{{ AWS_REGION }}"
+        aws_access_key: "{{ AWS_ACCESS_KEY_ID }}"
+        aws_secret_key: "{{ AWS_SECRET_ACCESS_KEY }}"
+        stack_name: "{{ STACK_NAME }}"
+      register: stack_info
+
+    - name: Debug full stack info
+      debug:
+        msg: "{{ stack_info | to_nice_yaml }}"
+
+    - name: Debug stack outputs specifically
+      debug:
+        msg: "{{ stack_info.cloudformation[STACK_NAME].stack_outputs }}"
+
+    - name: Set distribution ID from stack outputs
+      set_fact:
+        cloudfront_distribution_id: "{{ stack_info.cloudformation[STACK_NAME].stack_outputs['DistributionId'] }}"
+
+    - name: Validate distribution ID
+      fail:
+        msg: "CloudFront Distribution ID not found in stack outputs"
+      when: cloudfront_distribution_id is not defined or cloudfront_distribution_id == ''
+
     - name: Create CloudFront invalidation
       community.aws.cloudfront_invalidation:
         region: "{{ AWS_REGION }}"
