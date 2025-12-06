@@ -10,7 +10,6 @@
     project_root: "{{ playbook_dir | realpath }}/../.."
     frontend_dir: "{{ project_root }}/frontend"
     build_dir: "{{ frontend_dir }}/dist"
-    cloudfront_distribution_id: E3DD85UXJ00YH5
   tasks:
     - name: Install Node dependencies (clean, reproducible)
       community.general.npm:
@@ -70,6 +69,18 @@
           index.html
         delete: false
       register: sync_misc
+    - name: Get CloudFormation stack info
+      amazon.aws.cloudformation_info:
+        region: "{{ AWS_REGION }}"
+        aws_access_key: "{{ AWS_ACCESS_KEY_ID }}"
+        aws_secret_key: "{{ AWS_SECRET_ACCESS_KEY }}"
+        stack_name: "{{ STACK_NAME }}"
+      register: stack_info
+
+    - name: Set distribution ID from stack outputs
+      set_fact:
+        cloudfront_distribution_id: "{{ stack_info.cloudformation[STACK_NAME].stack_outputs['DistributionId'] }}"
+
     - name: Create CloudFront invalidation
       community.aws.cloudfront_invalidation:
         region: "{{ AWS_REGION }}"

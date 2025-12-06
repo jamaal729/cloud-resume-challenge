@@ -4,7 +4,6 @@ set -e
 # ansible-playbook playbooks/invalidate.yml --ask-vault-pass
 # ansible-playbook playbooks/invalidate.yml --vault-password-file ../.vault_pass
 
-
 # ansible-playbook playbooks/invalidate.yml --ask-vault-pass -e "debug_mode=true" 2>&1 | grep -A 20 "stack_outputs"
 ansible-playbook playbooks/invalidate.yml --vault-password-file ../.vault_pass -e "debug_mode=true" 2>&1 | grep -A 20 "stack_outputs"
 
