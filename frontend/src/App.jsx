@@ -2,7 +2,7 @@ import React from 'react';
 import ResumeData from './data/ResumeData';
 import HeaderBlock from './components/HeaderBlock';
 import SectionsBlock from './components/SectionsBlock';
-import FooterBlock from './components/FooterBlock';
+import CounterBlock from './components/CounterBlock';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <HeaderBlock data={ResumeData} />
         <SectionsBlock data={ResumeData} />
         <br />
-        <FooterBlock data={ResumeData} />
+        <CounterBlock />
       </div>
     </>
   );
