@@ -1,0 +1,73 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.39.26.7824",
+      "templateHash": "3778482749173820288"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure region for the storage account (AFD is global)."
+      }
+    },
+    "storage_account_name": {
+      "type": "string",
+      "metadata": {
+        "description": "Storage account name (3–24, lowercase letters + digits)."
+      }
+    },
+    "domain_fqdn": {
+      "type": "string",
+      "metadata": {
+        "description": "Custom domain you’ll serve on Front Door (use a subdomain like www)."
+      }
+    },
+    "dns_zone_name": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure DNS zone name that hosts your domain."
+      }
+    },
+    "dns_zone_rg": {
+      "type": "string",
+      "metadata": {
+        "description": "Resource group name where the Azure DNS zone lives."
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-09-01",
+      "name": "[parameters('storage_account_name')]",
+      "location": "[parameters('location')]",
+      "kind": "StorageV2",
+      "sku": {
+        "name": "Standard_LRS"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/staticWebsite",
+      "apiVersion": "2021-09-01",
+      "name": "[format('{0}/{1}', parameters('storage_account_name'), 'default')]",
+      "properties": {
+        "indexDocument": "index.html",
+        "errorDocument404Path": "index.html"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storage_account_name'))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "storageStaticSiteUrl": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', parameters('storage_account_name')), '2021-09-01').primaryEndpoints.web]"
+    }
+  }
+}
