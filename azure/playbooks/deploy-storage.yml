@@ -8,10 +8,10 @@
 
   vars:
     resource_group: cloud-resume-challenge
-    dns_zone_rg: cloud-resume-challenge
+    # dns_zone_rg: cloud-resume-challenge
     location: eastus
-    dns_zone_name: 'jamaal-ahmed-azr-resume.site'
-    domain_fqdn: 'jamaal-ahmed-azr-resume.site'
+    # dns_zone_name: 'jamaal-ahmed-azr-resume.site'
+    # domain_fqdn: 'jamaal-ahmed-azr-resume.site'
     storage_account_name: jamaalahmedcrc2025   # 3–24 chars, lowercase+digits, globally unique
     bicep_file: "{{ playbook_dir }}/../storage.bicep"
     built_json: "{{ playbook_dir }}/../storage.built.json"
