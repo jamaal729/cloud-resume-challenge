@@ -24,11 +24,3 @@ resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2023-01-01'
     }
   }
 }
-
-// resource webContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2023-01-01' = {
-//   parent: blobService
-//   name: '$web'
-//   properties: {
-//     publicAccess: 'None'  // Changed from 'Blob' to 'None'
-//   }
-// }

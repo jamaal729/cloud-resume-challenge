@@ -78,3 +78,33 @@
           - "Storage Account name: {{ storage_account_name }}"
           - "Resource Group: {{ resource_group }}"
           - "Location: {{ location }}"
+
+    - name: Get primary key for the storage account
+      ansible.builtin.command: >
+        az storage account keys list
+        --resource-group {{ resource_group }}
+        --account-name {{ storage_account_name }}
+        --query "[0].value"
+        -o tsv
+      register: sa_key
+      changed_when: false
+      failed_when: sa_key.rc != 0
+
+    - name: Enable static website on the storage account
+      ansible.builtin.command: >
+        az storage blob service-properties update
+        --account-name {{ storage_account_name }}
+        --account-key "{{ sa_key.stdout }}"
+        --static-website
+        --index-document index.html
+        --404-document 404.html
+      register: static_website
+      changed_when: static_website.rc == 0
+      failed_when: static_website.rc != 0
+
+    - name: Show static website enable result
+      ansible.builtin.debug:
+        msg:
+          - "Static website update stdout: {{ static_website.stdout | default('') }}"
+          - "Index document: index.html"
+          - "404 document: 404.html"
