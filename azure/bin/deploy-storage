@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
+# rm storage.built.json
+
+az bicep build --file ./storage.bicep --outfile ./storage.built.json
+
+# az bicep build --file ./azure/storage.bicep --outfile ./azure/storage.built.json
+
 ansible-playbook playbooks/deploy-storage.yml
 
-rm /workspaces/cloud-resume-challenge-work/azure/storage.built.json
-az bicep build --file /workspaces/cloud-resume-challenge-work/azure/storage.bicep --outfile /workspaces/cloud-resume-challenge-work/azure/storage.built.json
 
-
-rm /workspaces/cloud-resume-challenge-work/azure/storage.built.json
-az bicep build --file /workspaces/cloud-resume-challenge-work/azure/storage.bicep --outfile /workspaces/cloud-resume-challenge-work/azure/storage.built.json
+# rm /workspaces/cloud-resume-challenge-work/azure/storage.built.json
+# az bicep build --file /workspaces/cloud-resume-challenge-work/azure/storage.bicep --outfile /workspaces/cloud-resume-challenge-work/azure/storage.built.json

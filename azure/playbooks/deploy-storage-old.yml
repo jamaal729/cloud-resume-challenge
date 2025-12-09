@@ -35,7 +35,7 @@
         az deployment group validate
         --resource-group {{ resource_group }}
         --template-file {{ built_json }}
-        --parameters location={{ location }} storage_account_name={{ storage_account_name }} 
+        --parameters location={{ location }} storage_account_name={{ storage_account_name }} domain_fqdn={{ domain_fqdn }} dns_zone_name={{ dns_zone_name }} dns_zone_rg={{ dns_zone_rg }}
         --output json
       register: cli_validate
       changed_when: false
@@ -46,7 +46,7 @@
         az deployment group what-if
         --resource-group {{ resource_group }}
         --template-file {{ built_json }}
-        --parameters location={{ location }} storage_account_name={{ storage_account_name }}
+        --parameters location={{ location }} storage_account_name={{ storage_account_name }} domain_fqdn={{ domain_fqdn }} dns_zone_name={{ dns_zone_name }} dns_zone_rg={{ dns_zone_rg }}
         --no-pretty-print
       register: cli_whatif
       changed_when: false
@@ -61,20 +61,32 @@
       ansible.builtin.set_fact:
         arm_template: "{{ lookup('file', built_json) | from_json }}"
 
-    - name: Deploy template with parameters (CLI)
-      ansible.builtin.command: >
-        az deployment group create
-        --resource-group {{ resource_group }}
-        --template-file {{ built_json }}
-        --parameters location={{ location }} storage_account_name={{ storage_account_name }}
-        --output json
-      register: cli_deploy
-      changed_when: "'Succeeded' in cli_deploy.stdout"
+    - name: Deploy template with parameters (via azure_rm_deployment)
+      azure.azcollection.azure_rm_deployment:
+        resource_group: "{{ resource_group }}"
+        name: "{{ deployment_name }}"
+        state: present
+        # You can also use template_link (URI). Here we inline the JSON dict:
+        template: "{{ arm_template }}"
+        deployment_mode: incremental
+        location: "{{ location }}"
+        parameters:
+          location:
+            value: "{{ location }}"
+          storage_account_name:
+            value: "{{ storage_account_name }}"
+          domain_fqdn:
+            value: "{{ domain_fqdn }}"
+          dns_zone_name:
+            value: "{{ dns_zone_name }}"
+          dns_zone_rg:
+            value: "{{ dns_zone_rg }}"
+      register: deploy_out
 
     - name: Show deployment result summary
       ansible.builtin.debug:
         msg:
-          - "Deployment output: {{ cli_deploy.stdout }}"
+          - "Deployment state: {{ deploy_out.deployment.properties.provisioningState | default('unknown') }}"
           - "Storage Account name: {{ storage_account_name }}"
           - "Resource Group: {{ resource_group }}"
           - "Location: {{ location }}"

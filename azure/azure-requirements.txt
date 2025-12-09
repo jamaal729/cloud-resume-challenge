@@ -58,3 +58,4 @@ pandas
 oras
 netaddr
 azure-servicebus
+ansible[azure]
