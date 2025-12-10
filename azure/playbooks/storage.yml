@@ -8,11 +8,8 @@
 
   vars:
     resource_group: cloud-resume-challenge
-    # dns_zone_rg: cloud-resume-challenge
     location: eastus
-    # dns_zone_name: 'jamaal-ahmed-azr-resume.site'
-    # domain_fqdn: 'jamaal-ahmed-azr-resume.site'
-    storage_account_name: jamaalahmedcrc2025   # 3–24 chars, lowercase+digits, globally unique
+    storage_account_name: jamaalahmedcrc2025
     bicep_file: "{{ playbook_dir }}/../storage.bicep"
     built_json: "{{ playbook_dir }}/../storage.built.json"
     deployment_name: "crc-deploy"
@@ -25,32 +22,26 @@
         --outfile {{ built_json }}
       changed_when: true
 
-    - name: Ensure resource group exists
-      azure.azcollection.azure_rm_resourcegroup:
-        name: "{{ resource_group }}"
-        location: "{{ location }}"
-
-    - name: Validate ARM template & parameters (CLI)
+    - name: Validate ARM template & parameters (subscription CLI)
       ansible.builtin.command: >
-        az deployment group validate
-        --resource-group {{ resource_group }}
+        az deployment sub validate
+        --location {{ location }}
         --template-file {{ built_json }}
-        --parameters location={{ location }} storage_account_name={{ storage_account_name }} 
+        --parameters resource_group_name={{ resource_group }} location={{ location }} storage_account_name={{ storage_account_name }}
         --output json
       register: cli_validate
       changed_when: false
       failed_when: cli_validate.rc != 0
 
-    - name: What-if preview (CLI)
+    - name: What-if preview (subscription CLI)
       ansible.builtin.command: >
-        az deployment group what-if
-        --resource-group {{ resource_group }}
+        az deployment sub what-if
+        --location {{ location }}
         --template-file {{ built_json }}
-        --parameters location={{ location }} storage_account_name={{ storage_account_name }}
+        --parameters resource_group_name={{ resource_group }} location={{ location }} storage_account_name={{ storage_account_name }}
         --no-pretty-print
       register: cli_whatif
       changed_when: false
-      # don't fail the play if what-if reports changes; it's informational
       failed_when: cli_whatif.rc != 0
 
     - name: Show what-if summary
@@ -61,12 +52,12 @@
       ansible.builtin.set_fact:
         arm_template: "{{ lookup('file', built_json) | from_json }}"
 
-    - name: Deploy template with parameters (CLI)
+    - name: Deploy template with parameters (subscription CLI)
       ansible.builtin.command: >
-        az deployment group create
-        --resource-group {{ resource_group }}
+        az deployment sub create
+        --location {{ location }}
         --template-file {{ built_json }}
-        --parameters location={{ location }} storage_account_name={{ storage_account_name }}
+        --parameters resource_group_name={{ resource_group }} location={{ location }} storage_account_name={{ storage_account_name }}
         --output json
       register: cli_deploy
       changed_when: "'Succeeded' in cli_deploy.stdout"

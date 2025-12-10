@@ -1,26 +1,27 @@
+targetScope = 'subscription'
+
 @description('Azure region for the storage account (AFD is global).')
 param location string
+
+@description('Resource group name to create.')
+param resource_group_name string
 
 @description('Storage account name (3–24, lowercase letters + digits).')
 param storage_account_name string
 
-resource sa 'Microsoft.Storage/storageAccounts@2023-01-01' = {
-  name: storage_account_name
+resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+  name: resource_group_name
   location: location
-  kind: 'StorageV2'
-  sku: { name: 'Standard_LRS' }
-  properties: {
-    supportsHttpsTrafficOnly: true
-    allowBlobPublicAccess: false  // Set to false to comply with policy
+}
+
+module storageModule './storage-module.bicep' = {
+  name: 'storageDeployment'
+  scope: rg
+  params: {
+    location: location
+    storage_account_name: storage_account_name
   }
 }
 
-resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2023-01-01' = {
-  parent: sa
-  name: 'default'
-  properties: {
-    cors: {
-      corsRules: []
-    }
-  }
-}
+output storageAccountName string = storageModule.outputs.storageAccountName
+output resourceGroupName string = rg.name

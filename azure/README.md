@@ -1,7 +1,4 @@
 
-
-
-
 ## Install Azure Bicep
 
 ```sh
