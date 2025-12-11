@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+
+# ansible-playbook playbooks/function-app.yml --ask-vault-pass
+# ansible-playbook playbooks/function-app.yml --vault-password-file ../.vault_pass
+
+ansible-playbook playbooks/function-app.yml --vault-password-file ../.vault_pass -vvv

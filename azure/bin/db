@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-# ansible-playbook playbooks/db.yml --ask-vault-pass
-ansible-playbook playbooks/db.yml --vault-password-file ../.vault_pass

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-az bicep build --file ./storage.bicep --outfile ./storage.built.json
+# az bicep build --file ./storage.bicep --outfile ./storage.built.json
 
 # ansible-playbook playbooks/storage.yml --ask-vault-pass
 ansible-playbook playbooks/storage.yml --vault-password-file ../.vault_pass

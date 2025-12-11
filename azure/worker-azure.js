@@ -2,7 +2,8 @@ export default {
   async fetch(request) {
     const url = new URL(request.url)
     const storageAccount = "jamaalahmedcrc2025" // Replace with your Azure Storage account name
-    const baseUrl = `https://${storageAccount}.z13.web.core.windows.net`
+    // const baseUrl = `https://${storageAccount}.z13.web.core.windows.net`
+    const baseUrl = `https://${storageAccount}.z9.web.core.windows.net`
 
     // Serve static assets normally
     if (url.pathname.startsWith("/assets/")) {

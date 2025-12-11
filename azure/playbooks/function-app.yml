@@ -1,0 +1,104 @@
+---
+- name: Deploy Azure Function App
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  
+  vars_files:
+    - vaults/prod.yml
+  
+  vars:
+    # resource_group: "{{ azure_resource_group }}"
+    # location: "{{ azure_location }}"
+    # function_app_name: "{{ azure_function_app_name }}"
+    # function_storage_name: "{{ azure_function_storage_name }}"
+    # cosmosdb_account_name: "{{ azure_cosmosdb_account_name }}"
+    resource_group: "cloud-resume-challenge"
+    location: canadacentral
+    function_app_name: viewcounterfnapp  # 3-60 chars, lowercase, alphanumeric, hyphens
+    function_storage_name: viewcounterfnstorage  # 3-24 chars, lowercase only
+    cosmosdb_account_name: "viewcountercosmosdbacc"
+    
+  tasks:
+    - name: Build Bicep template
+      ansible.builtin.command:
+        cmd: az bicep build --file ./function-app.bicep --outfile ./function-app.built.json
+        chdir: "{{ playbook_dir }}/.."
+      changed_when: true
+
+    - name: Validate deployment template
+      ansible.builtin.command: >
+        az deployment group validate
+        --resource-group {{ resource_group }}
+        --template-file {{ playbook_dir }}/../function-app.built.json
+        --parameters
+        location={{ location }}
+        functionAppName={{ function_app_name }}
+        storageAccountName={{ function_storage_name }}
+        cosmosDbAccountName={{ cosmosdb_account_name }}
+        --output json
+      register: validate_result
+      changed_when: false
+      failed_when: validate_result.rc != 0
+
+    - name: Deploy Function App infrastructure
+      ansible.builtin.command: >
+        az deployment group create
+        --resource-group {{ resource_group }}
+        --template-file {{ playbook_dir }}/../function-app.built.json
+        --parameters
+        location={{ location }}
+        functionAppName={{ function_app_name }}
+        storageAccountName={{ function_storage_name }}
+        cosmosDbAccountName={{ cosmosdb_account_name }}
+        --output json
+      register: deployment
+      changed_when: "'Succeeded' in deployment.stdout"
+
+    - name: Parse deployment outputs
+      ansible.builtin.set_fact:
+        deployment_outputs: "{{ (deployment.stdout | from_json).properties.outputs }}"
+
+    - name: Display deployment outputs
+      ansible.builtin.debug:
+        var: deployment_outputs
+
+    - name: Install Python dependencies
+      ansible.builtin.command:
+        cmd: >
+          pip install
+          --target="{{ playbook_dir }}/../src/.python_packages/lib/site-packages"
+          -r {{ playbook_dir }}/../src/requirements.txt
+        chdir: "{{ playbook_dir }}/../src"
+      changed_when: true
+
+    - name: Create zip package for deployment
+      community.general.archive:
+        path:
+          - "{{ playbook_dir }}/../src/function_app.py"
+          - "{{ playbook_dir }}/../src/requirements.txt"
+          - "{{ playbook_dir }}/../src/host.json"
+          - "{{ playbook_dir }}/../src/.python_packages"
+        dest: "{{ playbook_dir }}/../function-app.zip"
+        format: zip
+        exclude_path:
+          - "{{ playbook_dir }}/../src/__pycache__"
+    
+    - name: Deploy function code
+      ansible.builtin.command:
+        cmd: >
+          az functionapp deployment source config-zip
+          --resource-group {{ resource_group }}
+          --name {{ function_app_name }}
+          --src {{ playbook_dir }}/../function-app.zip
+      changed_when: true
+      
+    - name: Clean up zip file
+      ansible.builtin.file:
+        path: "{{ playbook_dir }}/../function-app.zip"
+        state: absent
+
+    - name: Clean up python packages
+      ansible.builtin.file:
+        path: "{{ playbook_dir }}/../src/.python_packages"
+        state: absent

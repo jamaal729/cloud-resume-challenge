@@ -6,13 +6,12 @@
 
   vars:
     resource_group: cloud-resume-challenge
-    location: eastus
+    location: canadacentral
     storage_account_name: jamaalahmedcrc2025
-    bicep_file: "{{ playbook_dir }}/../db.bicep"
-    built_json: "{{ playbook_dir }}/../db.built.json"
+    bicep_file: "{{ playbook_dir }}/../cosmos-db.bicep"
+    built_json: "{{ playbook_dir }}/../cosmos-db.built.json"
     deployment_name: "db-deploy"
-    cosmosdb_account_name: "viewcountercrc2025"
-
+    cosmosdb_account_name: "viewcountercosmosdbacc"
   tasks:
     - name: Verify Azure CLI login
       ansible.builtin.command: az account show
