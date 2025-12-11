@@ -41,7 +41,10 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2022-09-01' = {
     name: 'Y1'
     tier: 'Dynamic'
   }
-  properties: {}
+  properties: {
+    reserved: true  // Required for Linux
+  }
+  kind: 'linux'
 }
 
 // Function App
@@ -51,7 +54,9 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
   kind: 'functionapp,linux'
   properties: {
     serverFarmId: hostingPlan.id
+    reserved: true  // Required for Linux
     siteConfig: {
+      linuxFxVersion: 'PYTHON|3.11'
       appSettings: [
         {
           name: 'AzureWebJobsStorage'

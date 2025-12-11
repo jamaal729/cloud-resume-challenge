@@ -66,7 +66,7 @@ def increment():
 
 app = func.FunctionApp()
 
-@app.route(route="counter", methods=["GET", "POST"])
+@app.route(route="counter", methods=["GET", "POST"], auth_level=func.AuthLevel.ANONYMOUS)
 def counter(req: func.HttpRequest) -> func.HttpResponse:
     method = req.method.upper()
 
