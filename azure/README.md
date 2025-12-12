@@ -1,4 +1,3 @@
-
 ## Azure Version
 
 ### Bicep and Ansible
