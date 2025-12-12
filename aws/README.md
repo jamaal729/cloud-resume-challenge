@@ -1,7 +1,7 @@
 ## AWS Version
 
 ### CloudFormation and Ansible
-For IAC, CloudFormation is an aws service and straightforward to use, deployed using ansible
+For IAC, the CloudFormation aws service is straightforward to use, and deployed using ansible
 
 ### Install Ansible
 ```sh

@@ -2,5 +2,4 @@
 set -e
 
 # ansible-playbook playbooks/deploy.yml --ask-vault-pass
-
 ansible-playbook playbooks/deploy.yml --vault-password-file ../.vault_pass

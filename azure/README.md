@@ -2,13 +2,7 @@
 ## Azure Version
 
 ### Bicep and Ansible
-For IAC, uses Azure Bicep and ansible
-
-## Login to azure and select subscription / directory
-
-```sh
-az login
-```
+For IAC, uses Azure Bicep and Ansible for Deployment and CloudFlare for static website hosting
 
 ## Install Azure Bicep
 
@@ -19,6 +13,11 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 ### Install Ansible
 ```sh
 pipx install --include-deps ansible
+```
+
+## Login to azure
+```sh
+az login
 ```
 
 ### Ansible vaults for secrets

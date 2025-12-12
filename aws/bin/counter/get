@@ -2,3 +2,4 @@
 set -e
 
 curl https://api-counter.jamaal-ahmed-aws-resume.site/counter
+echo
