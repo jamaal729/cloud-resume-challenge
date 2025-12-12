@@ -9,4 +9,4 @@ npm run dev
 
 App address is http://localhost:5173
 
-Note: [backend](../backend/README.md) code has to be running to display the page visit count while running the frontend
+Note: [backend](../backend) code has to be running to display the page visit count while running the frontend

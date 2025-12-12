@@ -3,6 +3,8 @@
 
 In getting started with the challenge, I used a draft microsoft word resume which I converted into html using chatgpt.
 
+[Input doc to ChatGpt](./docs/RESUME%20-%20Jamaal%20Ahmed.docx)
+
 ChatGpt Prompts:
 
 -> 1: Convert this resume word format to html. Use single file, proper css organization within styles element and preserve columns.
@@ -34,7 +36,3 @@ http-server
 
 #### In browser: <br>
 &nbsp; http://localhost:8080
-
--------
-
-[Input to ChatGpt](./RESUME%20-%20Jamaal%20Ahmed.docx)

@@ -1,7 +1,7 @@
 # cloud-resume-challenge
 Cloud Resume Challenge Project
 
-My react resume is uploaded to AWS and Azure
+My cloud resume deployed to AWS and Azure
 
 [Static site](./static-site) \
 Starting point of the project
@@ -15,5 +15,5 @@ Simple express server to handle page visit counts from react front end
 [AWS Version](./aws) <br>
 &nbsp;&nbsp; Site: https://www.jamaal-ahmed-aws-resume.site
 
-[Azure Version - Repo](./azure) <br>
+[Azure Version](./azure) <br>
 &nbsp;&nbsp; Site: https://www.jamaal-ahmed-azr-resume.site
