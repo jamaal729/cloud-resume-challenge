@@ -53,3 +53,23 @@ ansible-vault create playbooks/vaults/prod.yml
 ansible-vault edit playbooks/vaults/prod.yml
 ansible-vault view playbooks/vaults/prod.yml
 ```
+
+
+### Add gcp key credentials to vault
+E.g.
+```sh
+gcp_service_account_contents: |
+  # Paste the entire content of your credentials.json file here
+  {
+    "type": "service_account",
+    "project_id": "your-project-id",
+    "private_key_id": "...",
+    "private_key": "-----BEGIN PRIVATE KEY-----\\n...\\n-----END PRIVATE KEY-----\\n",
+    "client_email": "...",
+    "client_id": "...",
+    "auth_uri": "...",
+    "token_uri": "...",
+    "auth_provider_x509_cert_url": "...",
+    "client_x509_cert_url": "..."
+  }
+```
