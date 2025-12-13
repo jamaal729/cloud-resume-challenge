@@ -24,3 +24,32 @@ $ sudo apt update
 
 $ sudo apt-get install terraform
 ```
+
+### GCP Service Account
+
+In GCP create service account with Infrastructure Administrator role
+
+```sh
+export GOOGLE_APPLICATION_CREDENTIALS=/workspaces/cloud-resume-challenge/gcp/gcp-key.json
+```
+
+To persist, add to `.bashrc` and reload bash file
+
+```sh
+source ~/.bashrc
+env | grep GOOGLE
+```
+
+### Install Ansible
+```sh
+pipx install --include-deps ansible
+ansible-galaxy collection install -r requirements.txt
+```
+
+### Ansible playbook vault
+```sh
+cd gcp
+ansible-vault create playbooks/vaults/prod.yml
+ansible-vault edit playbooks/vaults/prod.yml
+ansible-vault view playbooks/vaults/prod.yml
+```
