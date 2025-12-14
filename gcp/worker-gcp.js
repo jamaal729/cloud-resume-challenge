@@ -1,7 +1,7 @@
 export default {
   async fetch(request) {
     const url = new URL(request.url)
-    const bucket = "jamaal-ahmed-azr-resume.site"
+    const bucket = "jamaal-ahmed-gcp-resume.site"
 
     // Serve static assets normally
     if (url.pathname.startsWith("/assets/")) {
