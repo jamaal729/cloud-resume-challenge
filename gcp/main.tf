@@ -39,3 +39,15 @@ resource "google_storage_bucket_iam_binding" "public_access" {
     "allUsers",
   ]
 }
+
+
+terraform { 
+  cloud { 
+    
+    organization = "terra_first" 
+
+    workspaces { 
+      name = "jamaal-ahmed-gcp-resume" 
+    } 
+  } 
+}
