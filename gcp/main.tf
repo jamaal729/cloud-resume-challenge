@@ -14,20 +14,6 @@ resource "google_storage_bucket" "static_site" {
     main_page_suffix = "index.html"
     not_found_page   = "404.html"
   }
-  /*
-  cors {
-    origin          = ["http://image-store.com"]
-    method          = ["GET", "HEAD", "PUT", "POST", "DELETE"]
-    response_header = ["*"]
-    max_age_seconds = 3600
-  }
-  cors {
-    origin            = ["http://image-store.com"]
-    method            = ["GET", "HEAD", "PUT", "POST", "DELETE"]
-    response_header   = ["*"]
-    max_age_seconds   = 0
-  }
-  */
 }
 
 resource "google_storage_bucket_iam_binding" "public_access" {
@@ -40,14 +26,12 @@ resource "google_storage_bucket_iam_binding" "public_access" {
   ]
 }
 
-
 terraform { 
   cloud { 
-    
     organization = "terra_first" 
 
     workspaces { 
-      name = "jamaal-ahmed-gcp-resume" 
-    } 
-  } 
+      name = "jamaal-ahmed-gcp-resume"
+    }
+  }
 }
