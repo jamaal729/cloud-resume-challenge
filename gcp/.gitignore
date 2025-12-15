@@ -1,5 +1,6 @@
 gcp-key.json
 .dist/
+temp/
 
 # --- Terraform ---
 # Local .terraform directories (contains provider binaries and modules)
