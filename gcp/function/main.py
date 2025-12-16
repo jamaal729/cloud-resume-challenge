@@ -2,6 +2,7 @@ import json
 import os
 import functions_framework
 from flask import Request
+from google.cloud import firestore
 
 # ======================
 # Config (via ENV)
@@ -14,10 +15,19 @@ CORS_ALLOW_HEADERS = os.environ.get("CORS_ALLOW_HEADERS", "Content-Type,Authoriz
 CORS_ALLOW_METHODS = os.environ.get("CORS_ALLOW_METHODS", "GET,POST,OPTIONS")
 CORS_MAX_AGE = os.environ.get("CORS_MAX_AGE", "3600")
 
+FIRESTORE_COLLECTION = os.environ.get("FIRESTORE_COLLECTION", "counter")
+FIRESTORE_DOC_ID = os.environ.get("COUNTER_DOC_ID", "global")
+
 # ======================
-# In-memory counter (resets on cold start)
+# Firestore client (singleton)
 # ======================
-counter = {"count": 0}
+firestore_client = None
+
+def get_firestore():
+    global firestore_client
+    if firestore_client is None:
+        firestore_client = firestore.Client()
+    return firestore_client
 
 # ======================
 # Helpers
@@ -57,18 +67,36 @@ def no_content_response(request: Request):
     return ("", 204, cors_headers(request))
 
 def get_count(request: Request):
-    return json_response(request, 200, {"count": counter["count"]})
+    db = get_firestore()
+    doc_ref = db.collection(FIRESTORE_COLLECTION).document(FIRESTORE_DOC_ID)
+    doc = doc_ref.get()
+    count = 0
+    if doc.exists:
+        count = int(doc.to_dict().get("count", 0))
+    return json_response(request, 200, {"count": count})
 
 def increment(request: Request):
-    counter["count"] += 1
-    return json_response(request, 200, {"count": counter["count"]})
+    db = get_firestore()
+    doc_ref = db.collection(FIRESTORE_COLLECTION).document(FIRESTORE_DOC_ID)
+    
+    @firestore.transactional
+    def txn_incr(transaction):
+        snapshot = doc_ref.get(transaction=transaction)
+        current = snapshot.to_dict().get("count", 0) if snapshot.exists else 0
+        new_count = int(current) + 1
+        transaction.set(doc_ref, {"count": new_count})
+        return new_count
+    
+    transaction = db.transaction()
+    count = txn_incr(transaction)
+    return json_response(request, 200, {"count": count})
 
 # ======================
 # HTTP Entry Point
 # ======================
 @functions_framework.http
 def hello_http(request: Request):
-    """HTTP Cloud Function with in-memory counter.
+    """HTTP Cloud Function with Firestore counter.
     Args:
         request (flask.Request): The request object.
     Returns:
