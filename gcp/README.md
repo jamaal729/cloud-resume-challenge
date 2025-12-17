@@ -85,7 +85,7 @@ sudo apt-get update && sudo apt-get install -y google-cloud-cli
 
 ### Backend Components
 
-#### Visitor Counter Function
+#### 1. Visitor Counter Function
 A Python-based Google Cloud Function that tracks website visitors:
 - **Trigger**: HTTP endpoint (GET/POST requests)
 - **Runtime**: Python 3.x
@@ -99,8 +99,20 @@ The function:
 3. Increments the counter atomically
 4. Returns updated count as JSON response
 
-#### Firestore Database
+#### 2. Firestore Database
 A serverless NoSQL database storing visitor analytics:
 - **Type**: Native mode Firestore
 - **Collection**: `counters` or similar
 - **Document**: Stores visitor count and metadata
+
+### Main Deployment Steps
+ - Configure service account and export `GOOGLE_APPLICATION_CREDENTIALS`
+ - Store sensitive data (CloudFlare API keys, service account JSON)
+ - Create `terraform.tfvars` with your project details
+ - Run `terraform init` in the terraform directory
+ - Deploy GCP resources with `terraform apply`
+   - Creates GCS bucket
+   - Deploys Cloud Function
+   - Sets up Firestore database
+ - Execute Ansible playbooks to build and sync to GCS
+ - Verify Cloud Function responds at its URL

@@ -17,3 +17,6 @@ Simple express server to handle page visit counts from react front end
 
 [Azure Version](./azure) <br>
 &nbsp;&nbsp; Site: https://www.jamaal-ahmed-azr-resume.site
+
+[GCP Version](./gcp) <br>
+&nbsp;&nbsp; Site: https://www.jamaal-ahmed-gcp-resume.site
