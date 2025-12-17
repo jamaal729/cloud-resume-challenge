@@ -82,3 +82,25 @@ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor 
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
 sudo apt-get update && sudo apt-get install -y google-cloud-cli
 ```
+
+### Backend Components
+
+#### Visitor Counter Function
+A Python-based Google Cloud Function that tracks website visitors:
+- **Trigger**: HTTP endpoint (GET/POST requests)
+- **Runtime**: Python 3.x
+- **Purpose**: Increments and returns visitor count
+- **CORS Enabled**: Allows frontend JavaScript to call the API
+- **Authentication**: Public access for visitor counting
+
+The function:
+1. Receives HTTP request from the website
+2. Queries Firestore for current visitor count
+3. Increments the counter atomically
+4. Returns updated count as JSON response
+
+#### Firestore Database
+A serverless NoSQL database storing visitor analytics:
+- **Type**: Native mode Firestore
+- **Collection**: `counters` or similar
+- **Document**: Stores visitor count and metadata

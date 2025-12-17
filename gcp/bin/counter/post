@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -e
 
-curl -X POST https://us-east1-cloud-resume-challenge-jja.cloudfunctions.net/view_counter
+curl -X POST https://us-east1-cloud-resume-challenge-jja.cloudfunctions.net/counter
 echo
