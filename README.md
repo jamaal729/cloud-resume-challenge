@@ -1,7 +1,6 @@
-# cloud-resume-challenge
-Cloud Resume Challenge Project
+## Cloud Resume Challenge
 
-My cloud resume deployed to AWS and Azure
+My cloud resume deployed to AWS, Azure and GCP
 
 [Static site](./static-site) \
 Starting point of the project
