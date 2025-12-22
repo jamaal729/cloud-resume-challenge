@@ -25,13 +25,12 @@ const mock_server = {
   },
 }
 
-// plugins: [react()],
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), mock_server],
   server: {
-    // proxy: {
-    //   '/api': 'http://localhost:5174'
-    // },
+    proxy: {
+      '/api': 'http://localhost:5174' // For local develoment
+    },
   },
 })

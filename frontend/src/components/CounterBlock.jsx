@@ -9,7 +9,12 @@ import React, { useEffect, useState, useRef } from 'react';
 export default function CounterBlock() {
 
   const endpoint = import.meta.env.VITE_COUNTER_ENDPOINT || "";
-  console.log("CounterBlock using endpoint:", endpoint);
+  
+  // Use /api/views for local dev when no endpoint is set, /counter for cloud
+  const counterPath = endpoint ? "/counter" : "/api/views";
+  const fullUrl = endpoint + counterPath;
+  
+  console.log("CounterBlock using endpoint:", fullUrl);
 
   const [count, setCount] = useState(null);
   const hasIncremented = useRef(false);
@@ -24,7 +29,7 @@ export default function CounterBlock() {
   }, []);
 
   const increment = () => {
-    fetch(endpoint + "/counter", { method: "POST" })
+    fetch(fullUrl, { method: "POST" })
       .then((res) => res.json())
       .then((data) => setCount(Number(data.count) || 0))
       .catch((err) => console.error("Error incrementing count:", err));
