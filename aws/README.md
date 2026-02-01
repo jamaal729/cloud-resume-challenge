@@ -18,11 +18,18 @@ ansible-vault edit playbooks/vaults/prod.yml
 ansible-vault view playbooks/vaults/prod.yml
 ```
 
-### Install sam cli
+### Install aws sam cli
 ```sh
 curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/install.sh -o install-sam.sh
 sudo bash install-sam.sh --update
 sam --version
+```
+
+### Install aws cli
+```sh
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 ```
 
 ### Main Cloud Deployment Steps

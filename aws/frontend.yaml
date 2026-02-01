@@ -90,7 +90,7 @@ Resources:
     Properties:
       DistributionConfig:
         Enabled: true
-        Comment: !Sub Redirect www.${BucketName} -> ${BucketName}
+        Comment: !Sub Redirect ${BucketName} -> www.${BucketName}
         PriceClass: PriceClass_All
         Aliases:
           - !Ref BucketName
