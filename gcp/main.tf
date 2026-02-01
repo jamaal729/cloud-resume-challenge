@@ -68,12 +68,12 @@ resource "google_cloudfunctions2_function" "fn" {
   }
 
   service_config {
-    service_account_email = google_service_account.fn_runtime.email
-    available_cpu    = "1"
-    available_memory = "512M"
-    timeout_seconds  = 30
-    ingress_settings = "ALLOW_ALL" # allow public egress to the URL
-    max_instance_request_concurrency = 2
+    service_account_email = var.service_account_email != "" ? var.service_account_email : google_service_account.fn_runtime.email
+    available_cpu    = var.service_available_cpu
+    available_memory = var.service_available_memory
+    timeout_seconds  = var.service_timeout_seconds
+    ingress_settings = var.service_ingress_settings
+    max_instance_request_concurrency = var.service_max_instance_request_concurrency
   }
 }
 
