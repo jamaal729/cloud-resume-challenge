@@ -10,8 +10,8 @@
     resource_group: cloud-resume-challenge
     location: canadacentral
     storage_account_name: jamaalahmedcrc2025
-    bicep_file: "{{ playbook_dir }}/../storage.bicep"
-    built_json: "{{ playbook_dir }}/../storage.built.json"
+    bicep_file: "{{ playbook_dir }}/../templates/storage.bicep"
+    built_json: "{{ playbook_dir }}/../templates/storage.built.json"
     deployment_name: "crc-deploy"
 
   tasks:

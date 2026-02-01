@@ -8,8 +8,8 @@
     resource_group: cloud-resume-challenge
     location: canadacentral
     storage_account_name: jamaalahmedcrc2025
-    bicep_file: "{{ playbook_dir }}/../cosmos-db.bicep"
-    built_json: "{{ playbook_dir }}/../cosmos-db.built.json"
+    bicep_file: "{{ playbook_dir }}/../templates/cosmos-db.bicep"
+    built_json: "{{ playbook_dir }}/../templates/cosmos-db.built.json"
     deployment_name: "db-deploy"
     cosmosdb_account_name: "viewcountercosmosdbacc"
   tasks:

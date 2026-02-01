@@ -22,7 +22,7 @@
   tasks:
     - name: Build Bicep template
       ansible.builtin.command:
-        cmd: az bicep build --file ./function-app.bicep --outfile ./function-app.built.json
+        cmd: az bicep build --file ./templates/function-app.bicep --outfile ./templates/function-app.built.json
         chdir: "{{ playbook_dir }}/.."
       changed_when: true
 
@@ -30,7 +30,7 @@
       ansible.builtin.command: >
         az deployment group validate
         --resource-group {{ resource_group }}
-        --template-file {{ playbook_dir }}/../function-app.built.json
+        --template-file {{ playbook_dir }}/../templates/function-app.built.json
         --parameters
         location={{ location }}
         functionAppName={{ function_app_name }}
@@ -45,7 +45,7 @@
       ansible.builtin.command: >
         az deployment group create
         --resource-group {{ resource_group }}
-        --template-file {{ playbook_dir }}/../function-app.built.json
+        --template-file {{ playbook_dir }}/../templates/function-app.built.json
         --parameters
         location={{ location }}
         functionAppName={{ function_app_name }}
