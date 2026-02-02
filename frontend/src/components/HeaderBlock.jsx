@@ -3,7 +3,7 @@ import React from "react";
 export default function HeaderBlock({ data }) {
   const name = data?.name || data?.title || "JAMAAL AHMED";
   const contacts =
-    data?.contacts || "+1-555-555-5555 • Calgary, AB • CANADA";
+    data?.contacts || "Calgary, AB • CANADA";
 
   return (
     <div className="header-block">

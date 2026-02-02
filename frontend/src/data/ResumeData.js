@@ -1,6 +1,6 @@
 const ResumeData = {
 
-  "summary": "Software Developer with over five years of experience in building API and data applications. Proven expertise in providing robust integration interfaces and technical support for Web API and ETL applications.",
+  "summary": "Software Developer with over five years of experience in building API and data applications. Proven expertise in providing robust integration interfaces for Web API and ETL applications.",
 
   "experience": [
     {
