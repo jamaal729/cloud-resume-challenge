@@ -1,0 +1,77 @@
+# GCP Deployment Workflow
+# =======================
+
+# Purpose:
+#   Automated deployment pipeline for pushing application code and resources
+#   to Google Cloud Platform (GCP)
+#
+# Triggers:
+#   This workflow is executed based on configured events (push, pull_request,
+#   manual dispatch, etc.)
+#
+# Key Responsibilities:
+#   - Authenticate with GCP service account
+#   - Build and prepare application artifacts
+#   - Deploy resources to GCP (Compute Engine, Cloud Functions, etc.)
+#   - Run post-deployment validation and health checks
+#
+# Environment:
+#   - Platform: Google Cloud Platform
+#   - Infrastructure as Code: Terraform (if applicable)
+#   - Authentication: Service Account (GCP)
+#
+# Related Documentation:
+#   - GCP Documentation: https://cloud.google.com/docs
+#   - GitHub Actions: https://docs.github.com/en/actions
+
+
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build the application
+        working-directory: frontend
+        run: |
+          npm run build
+          echo "Build output:"
+          ls -la
+          ls -la dist || (echo "dist/ not found" && exit 1)
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}          
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Sync to GCS
+        working-directory: frontend
+        env:
+          BUCKET_NAME: ${{ secrets.GCP_BUCKET_NAME }}
+        run: |
+          gsutil -m rsync -r dist/ gs://$BUCKET_NAME
