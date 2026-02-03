@@ -28,15 +28,7 @@ export default function SectionsBlock({ data }) {
         ))}
       </section>
 
-      {/* Education section */}
-      <section className="section" id="education">
-        <h2>Education</h2>
-        {Array.isArray(data?.education) && data.education.map((edu, i) => (
-          <div className="education-entry" key={i}>
-            <strong>{edu.institution}</strong> — {edu.credential}{edu.date ? `, ${edu.date}` : ''}
-          </div>
-        ))}
-      </section>
+
 
       {/* Skills section */}
       <section className="section" id="skills">
@@ -49,10 +41,44 @@ export default function SectionsBlock({ data }) {
             <strong>Web Development</strong> — {Array.isArray(data?.skills?.webDevelopment) ? data.skills.webDevelopment.join(', ') : ''}
           </p>
           <p>
-            <strong>Databases & Technologies</strong> — {Array.isArray(data?.skills?.databasesTechnologies) ? data.skills.databasesTechnologies.join(', ') : ''}
+            <strong>Cloud</strong> — {Array.isArray(data?.skills?.cloudServices) ? data.skills.cloudServices.join(', ') : ''}
+          </p>
+          <p>
+            <strong>Data</strong> — {Array.isArray(data?.skills?.databasesTechnologies) ? data.skills.databasesTechnologies.join(', ') : ''}
           </p>
         </div>
       </section>
+
+      {/* Certifications section */}
+      <section className="section" id="certifications">
+        <h2>Certification</h2>
+        {Array.isArray(data?.certifications) && data.certifications.map((cert, i) => (
+          <div className="certification-entry" key={i}>
+            <strong>{cert.name}</strong> — {cert.description}{cert.date ? `, ${cert.date}` : ''}
+          </div>
+        ))}
+      </section>
+
+      {/* Projects section */}
+      <section className="section" id="projects">
+        <h2>Cloud Project</h2>
+        {Array.isArray(data?.projects) && data.projects.map((proj, i) => (
+          <div className="project-entry" key={i}>
+            <strong>{proj.name}</strong> — {proj.description}{proj.date ? `, ${proj.date}` : ''}
+          </div>
+        ))}
+      </section>
+
+      {/* Education section */}
+      <section className="section" id="education">
+        <h2>Education</h2>
+        {Array.isArray(data?.education) && data.education.map((edu, i) => (
+          <div className="education-entry" key={i}>
+            <strong>{edu.institution}</strong> — {edu.credential}{edu.date ? `, ${edu.date}` : ''}
+          </div>
+        ))}
+      </section>
+
     </>
   );
 }

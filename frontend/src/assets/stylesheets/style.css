@@ -105,7 +105,9 @@ h1.name{
 }
 
 .meta{
-  font-size:15px;
+  font-size:14px;
+  font-weight: 600;
+  font-style: italic;
   color:var(--muted);
   margin:5px 0 12px 0;
 }

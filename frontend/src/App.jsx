@@ -10,7 +10,6 @@ function App() {
       <div className="page">
         <HeaderBlock data={ResumeData} />
         <SectionsBlock data={ResumeData} />
-        <br />
         <CounterBlock />
       </div>
     </>

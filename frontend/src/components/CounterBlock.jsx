@@ -37,7 +37,9 @@ export default function CounterBlock() {
 
   return (
     <div className="view-counter" aria-live="polite">
-      <span className="view-label">Page views:</span>{' '}
+      <br />
+      <hr />
+      <span className="view-label">PAGE VIEWS:</span>{' '}
       <strong className="view-count">{count === null ? '' : count}</strong>
     </div>
   );
