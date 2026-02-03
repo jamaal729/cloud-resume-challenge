@@ -76,7 +76,7 @@ h1.name{
 
 .contacts{
   margin-top:12px;
-  font-size:13px;
+  font-size:14px;
   color:var(--muted);
   line-height:1.35;
 }
@@ -105,9 +105,9 @@ h1.name{
 }
 
 .meta{
-  font-size:14px;
-  font-weight: 600;
-  font-style: italic;
+  font-size:15px;
+  font-weight: bold;
+  font-style: normal;
   color:var(--muted);
   margin:5px 0 12px 0;
 }

@@ -1,6 +1,6 @@
 const ResumeData = {
 
-  "summary": "Software Developer with 6+ years of experience in building web applications and OAuth 2.0–secured API integrations using .NET, Node.js, and Python in Azure. Specialized in automation, developer-facing platforms, scalable cloud-native systems, and cloud data pipelines",
+  "summary": "Software Developer with 6+ years of experience in building web applications and OAuth 2.0–secured API integrations using .NET, Node.js, and Python in Azure. Specialized in automation, developer-facing platforms, cloud-native systems, and cloud data pipelines",
 
   "experience": [
     {

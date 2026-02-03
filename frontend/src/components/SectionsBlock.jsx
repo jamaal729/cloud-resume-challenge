@@ -15,8 +15,8 @@ export default function SectionsBlock({ data }) {
 
         {Array.isArray(data?.experience) && data.experience.map((exp, idx) => (
           <div className="experience-item" key={idx}>
-            <div className="employer">{exp.employer}</div>
-            <div className="meta">{exp.role}{exp.period ? ` — ${exp.period}` : ''}</div>
+            {/* <div className="employer">{exp.employer}</div> */}
+            <div className="meta">{exp.role} | {exp.employer} {exp.period ? ` — ${exp.period}` : ''}</div>
             <div className="details">
               {Array.isArray(exp.items) && (
                 <ul>
@@ -27,8 +27,6 @@ export default function SectionsBlock({ data }) {
           </div>
         ))}
       </section>
-
-
 
       {/* Skills section */}
       <section className="section" id="skills">
