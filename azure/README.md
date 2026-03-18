@@ -1,5 +1,7 @@
 ## Azure Version
 
+![alt text](../images/image-azure.png)
+
 ### Bicep and Ansible
 For IAC, uses Azure Bicep and Ansible for Deployment and CloudFlare for static website hosting
 

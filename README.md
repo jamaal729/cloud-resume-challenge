@@ -12,10 +12,19 @@ Converted from static site to react
 Simple express server to handle page visit counts from react front end
 
 [AWS Version](./aws) <br>
+<a href="./aws">
+  <img src="./images/image-aws.png" style="width: 50%;">
+</a> <br>
 &nbsp;&nbsp; Site: https://www.jamaal-ahmed-aws-resume.site
 
 [Azure Version](./azure) <br>
+<a href="./azure">
+  <img src="./images/image-azure.png" style="width: 50%;">
+</a> <br>
 &nbsp;&nbsp; Site: https://www.jamaal-ahmed-azr-resume.site
 
 [GCP Version](./gcp) <br>
+<a href="./gcp">
+  <img src="./images/image-gcp.png" style="width: 50%;">
+</a> <br>
 &nbsp;&nbsp; Site: https://www.jamaal-ahmed-gcp-resume.site

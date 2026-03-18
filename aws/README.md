@@ -1,5 +1,7 @@
 ## AWS Version
 
+![alt text](../images/image-aws.png)
+
 ### CloudFormation and Ansible
 For IAC, the CloudFormation aws service is straightforward to use, and deployed using ansible
 

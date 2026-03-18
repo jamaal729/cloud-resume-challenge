@@ -1,5 +1,7 @@
 ## GCP Version
 
+![alt text](../images/image-gcp.png)
+
 ### Terraform / Cloudflare
 For IAC, uses Terraform for Deployment and CloudFlare for static website hosting
 
