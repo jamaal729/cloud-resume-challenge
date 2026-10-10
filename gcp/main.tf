@@ -5,7 +5,7 @@ provider "google" {
 
 terraform {
   cloud {
-    organization = "terra_first"
+    organization = "terra-lrn-729"
     workspaces { name = "jamaal-ahmed-gcp-resume" }
   }
 }
